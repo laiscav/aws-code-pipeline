@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+          integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+          crossorigin="anonymous"/>
+</head>
+<body>
+<section class="jumbotron jumbotron-fluid bg-dark">
+    <h1 class="text-light text-center">Laisinha</h1>
+</section>
+<main class="card container p-3">
+    <label for="search">Pesquise um produto recentemente adquirido por laís</label>
+    <div class="input-group mb-3">
+        <input id="search" type="text" class="form-control">
+        <div class="input-group-append">
+            <button onclick="clickPesquisa()" id="searchBtn" class="input-group-text btn btn-primary" type="submit"><i class="fas fa-search"></i>
+            </button>
+        </div>
+    </div>
+    <h5 th:if="${nome}" th:text="'termo pesquisado: ' + ${nome}">termo pesquisado: chapinha</h5>
+    <section class="list-group">
+        <article th:each="produto: ${produtos}" th:text="${produto}" class="list-group-item bg-light"></article>
+        <articla th:if="${produtos.empty}" class="list-group-item list-group-item-danger">nenhum produto encontrado</articla>
+    </section>
+</main>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"></script>
+<script>
+        const search = document.getElementById("search");
+
+        function clickPesquisa() {
+            window.location.href = updateQueryStringParameter(window.location.href, "nome", search.value);
+        }
+
+        function updateQueryStringParameter(uri, key, value) {
+  var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+  var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+  if (uri.match(re)) {
+    return uri.replace(re, '$1' + key + "=" + value + '$2');
+  }
+  else {
+    return uri + separator + key + "=" + value;
+  }
+}
+
+</script>
+</body>
+</html>

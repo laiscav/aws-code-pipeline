@@ -1,0 +1,16 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      java: corretto11
+  build:
+    commands:
+      - echo Começando Build do projeto em `date`
+      - mvn package -Dmaven.test.skip=true
+      - mv target/aws-code-pipeline*.jar aws-code-pipeline.jar
+      - echo Build completed on `date`
+artifacts:
+  files:
+    - aws-code-pipeline.jar
+  discard-paths: yes
